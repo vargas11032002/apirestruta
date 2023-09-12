@@ -1,6 +1,17 @@
 import { pool } from '../database.js';
 
 
+
+export const obtenerReserva = async (req, res) => {
+  try {
+    const [results] = await pool.query('SELECT * FROM reservas WHERE  ReservaID = ?', [reservaID]);
+    res.json(results);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: 'Error al obtener reserva' });
+  }
+};
+
 export const obtenerReservas = async (req, res) => {
   try {
     const [results] = await pool.query('SELECT * FROM reservas');
