@@ -3,14 +3,20 @@ import { pool } from '../database.js';
 
 
 export const obtenerReserva = async (req, res) => {
+  const reservaID = req.params.id;
   try {
     const [results] = await pool.query('SELECT * FROM reservas WHERE  ReservaID = ?', [reservaID]);
-    res.json(results);
+    if (results.length === 0) {
+      return res.status(404).json({ mensaje: 'Reservas  no encontrada' });
+    }
+    res.json(results[0]);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: 'Error al obtener reserva' });
+    res.status(500).json({ mensaje: 'Error al obtener  Reserva' });
   }
 };
+
+
 
 export const obtenerReservas = async (req, res) => {
   try {
