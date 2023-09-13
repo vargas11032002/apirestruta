@@ -29,12 +29,14 @@ export const obtenerReservas = async (req, res) => {
 };
 
 
+
+
 export const crearReserva = async (req, res) => {
-  const { Nombre, Fecha, HabitacionID, ClienteID } = req.body;
+  const { NombreCliente, CorreoElectronicoCliente, FechaInicio, FechaFinalizacion, AlojamientoID } = req.body;
   try {
     await pool.query(
-      'INSERT INTO reservas (Nombre, Fecha, HabitacionID, ClienteID) VALUES (?, ?, ?, ?)',
-      [Nombre, Fecha, HabitacionID, ClienteID]
+      'INSERT INTO Reservas (NombreCliente, CorreoElectronicoCliente, FechaInicio, FechaFinalizacion, AlojamientoID) VALUES (?, ?, ?, ?, ?)',
+      [NombreCliente, CorreoElectronicoCliente, FechaInicio, FechaFinalizacion, AlojamientoID]
     );
     res.json({ mensaje: 'Reserva creada exitosamente' });
   } catch (error) {
@@ -45,11 +47,12 @@ export const crearReserva = async (req, res) => {
 
 
 export const actualizarReserva = (req, res) => {
-  const { Nombre, Fecha, HabitacionID, ClienteID } = req.body;
+  const { NombreCliente, CorreoElectronicoCliente, FechaInicio, FechaFinalizacion, AlojamientoID } = req.body;
   const reservaID = req.params.id;
+  
   pool.query(
-    'UPDATE reservas SET Nombre = ?, Fecha = ?, HabitacionID = ?, ClienteID = ? WHERE ReservaID = ?',
-    [Nombre, Fecha, HabitacionID, ClienteID, reservaID],
+    'UPDATE Reservas SET NombreCliente = ?, CorreoElectronicoCliente = ?, FechaInicio = ?, FechaFinalizacion = ?, AlojamientoID = ? WHERE ReservaID = ?',
+    [NombreCliente, CorreoElectronicoCliente, FechaInicio, FechaFinalizacion, AlojamientoID, reservaID],
     (error, result) => {
       if (error) {
         console.error(error);
@@ -64,10 +67,11 @@ export const actualizarReserva = (req, res) => {
   );
 };
 
+
 export const eliminarReserva = (req, res) => {
   const reservaID = req.params.id;
   pool.query(
-    'DELETE FROM reservas WHERE ReservaID = ?',
+    'DELETE FROM Reservas WHERE ReservaID = ?',
     [reservaID],
     (error, result) => {
       if (error) {
