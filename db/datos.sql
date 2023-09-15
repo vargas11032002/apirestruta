@@ -1,54 +1,49 @@
-create database ruta_magica
-use ruta_magica
+create database ruta_magica;
+use ruta_magica;
 
-CREATE TABLE Propietarios (
-    PropietarioID INT PRIMARY KEY,
-    Nombre VARCHAR(255),
-    CorreoElectronico VARCHAR(255)
+create table propietarios (
+    propietario_id int primary key,
+    nombre_propietario varchar(255),
+    correo_electronico_propietario varchar(255)
 );
 
-
-CREATE TABLE Alojamientos (
-    AlojamientoID INT PRIMARY KEY,
-    Nombre VARCHAR(255),
-    Ubicacion VARCHAR(255),
-    Precio DECIMAL(10, 2),
-    PropietarioID INT,
-    FOREIGN KEY (PropietarioID) REFERENCES Propietarios(PropietarioID)
+create table alojamientos (
+    alojamiento_id int primary key,
+    nombre_alojamiento varchar(255),
+    ubicacion_alojamiento varchar(255),
+    precio_alojamiento decimal(10, 2),
+    propietario_id int,
+    foreign key (propietario_id) references propietarios(propietario_id)
 );
 
-CREATE TABLE Reservas (
-    ReservaID INT PRIMARY KEY,
-    AlojamientoID INT,
-    NombreCliente VARCHAR(255),
-    CorreoElectronicoCliente VARCHAR(255),
-    FechaInicio DATE,
-    FechaFinalizacion DATE,
-    CONSTRAINT FK_Alojamiento_Reserva FOREIGN KEY (AlojamientoID) REFERENCES Alojamientos(AlojamientoID)
+create table reservas (
+    reserva_id int primary key,
+    alojamiento_id int,
+    nombre_cliente_reserva varchar(255),
+    correo_electronico_cliente_reserva varchar(255),
+    fecha_inicio_reserva date,
+    fecha_finalizacion_reserva date,
+    constraint fk_alojamiento_reserva foreign key (alojamiento_id) references alojamientos(alojamiento_id)
 );
 
-
-
-INSERT INTO Propietarios (PropietarioID, Nombre, CorreoElectronico)
-VALUES
+insert into propietarios (propietario_id, nombre_propietario, correo_electronico_propietario)
+values
     (1, 'Juan Pérez', 'juan.perez@example.com'),
     (2, 'María Rodríguez', 'maria.rodriguez@example.com'),
     (3, 'Carlos Sánchez', 'carlos.sanchez@example.com'),
     (4, 'Laura García', 'laura.garcia@example.com'),
     (5, 'Pedro López', 'pedro.lopez@example.com');
 
-
-INSERT INTO Alojamientos (AlojamientoID, Nombre, Ubicacion, Precio, PropietarioID)
-VALUES
+insert into alojamientos (alojamiento_id, nombre_alojamiento, ubicacion_alojamiento, precio_alojamiento, propietario_id)
+values
     (1, 'Casa de Playa', 'Playa del Sol', 150.00, 1),
     (2, 'Cabaña en el Bosque', 'Bosque Encantado', 100.00, 2),
     (3, 'Apartamento en la Ciudad', 'Centro Urbano', 120.00, 3),
     (4, 'Casa Rural', 'Campo Tranquilo', 80.00, 4),
     (5, 'Villa en la Montaña', 'Montaña Alta', 200.00, 5);
 
-
-INSERT INTO Reservas (ReservaID, AlojamientoID, NombreCliente, CorreoElectronicoCliente, FechaInicio, FechaFinalizacion)
-VALUES
+insert into reservas (reserva_id, alojamiento_id, nombre_cliente_reserva, correo_electronico_cliente_reserva, fecha_inicio_reserva, fecha_finalizacion_reserva)
+values
     (1, 1, 'Cliente 1', 'cliente1@example.com', '2023-09-15', '2023-09-20'),
     (2, 2, 'Cliente 2', 'cliente2@example.com', '2023-10-10', '2023-10-15'),
     (3, 3, 'Cliente 3', 'cliente3@example.com', '2023-11-05', '2023-11-10'),
