@@ -18,7 +18,7 @@ CREATE TABLE alojamientos (
 
 
 create table reservas (
-    reserva_id int primary key,
+    reserva_id int AUTO_INCREMENT primary key,
     alojamiento_id int,
     nombre_cliente_reserva varchar(255),
     correo_electronico_cliente_reserva varchar(255),
