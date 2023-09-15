@@ -7,14 +7,15 @@ create table propietarios (
     correo_electronico_propietario varchar(255)
 );
 
-create table alojamientos (
-    alojamiento_id int primary key,
-    nombre_alojamiento varchar(255),
-    ubicacion_alojamiento varchar(255),
-    precio_alojamiento decimal(10, 2),
-    propietario_id int,
-    foreign key (propietario_id) references propietarios(propietario_id)
+CREATE TABLE alojamientos (
+    alojamiento_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_alojamiento VARCHAR(255),
+    ubicacion_alojamiento VARCHAR(255),
+    precio_alojamiento DECIMAL(10, 2),
+    propietario_id INT,
+    FOREIGN KEY (propietario_id) REFERENCES propietarios(propietario_id)
 );
+
 
 create table reservas (
     reserva_id int primary key,

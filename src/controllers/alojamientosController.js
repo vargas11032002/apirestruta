@@ -24,11 +24,15 @@ export const obtenerAlojamiento = async (req, res) => {
   }
 };
 
+
+
 export const crearAlojamiento = async (req, res) => {
-  const { nombre_alojamiento, ubicacion_alojamiento, precio_alojamiento, propietario_id } = req.body;
-  if (!nombre_alojamiento || !ubicacion_alojamiento || !precio_alojamiento || !propietario_id) {
+  const data = req.body;
+  if (!data.nombre_alojamiento || !data.ubicacion_alojamiento || !data.precio_alojamiento || !data.propietario_id) {
     return res.status(400).json({ mensaje: 'Faltan campos obligatorios en la solicitud' });
   }
+
+  const { nombre_alojamiento, ubicacion_alojamiento, precio_alojamiento, propietario_id } = data;
 
   try {
     await pool.query(
