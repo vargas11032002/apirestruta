@@ -25,10 +25,12 @@ export const obtenerReserva = async (req, res) => {
 };
 
 export const crearReserva = async (req, res) => {
-  const { alojamiento_id, nombre_cliente_reserva, correo_electronico_cliente_reserva, fecha_inicio_reserva, fecha_finalizacion_reserva } = req.body;
-  if (!alojamiento_id || !nombre_cliente_reserva || !correo_electronico_cliente_reserva || !fecha_inicio_reserva || !fecha_finalizacion_reserva) {
+  const data = req.body;
+  if (!data.alojamiento_id || !data.nombre_cliente_reserva || !data.correo_electronico_cliente_reserva || !data.fecha_inicio_reserva || !data.fecha_finalizacion_reserva) {
     return res.status(400).json({ mensaje: 'Faltan campos obligatorios en la solicitud' });
   }
+
+  const { alojamiento_id, nombre_cliente_reserva, correo_electronico_cliente_reserva, fecha_inicio_reserva, fecha_finalizacion_reserva } = data;
 
   try {
     await pool.query(
@@ -41,6 +43,7 @@ export const crearReserva = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al crear la reserva' });
   }
 };
+
 
 export const actualizarReserva = async (req, res) => {
   const { alojamiento_id, nombre_cliente_reserva, correo_electronico_cliente_reserva, fecha_inicio_reserva, fecha_finalizacion_reserva } = req.body;
